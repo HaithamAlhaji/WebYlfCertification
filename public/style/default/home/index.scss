@@ -1,0 +1,30 @@
+#index > div > div {
+  padding: 5px;
+}
+#index {
+  div {
+    div {
+      div.container {
+        background-color: white;
+        border: 1px solid #ccc;
+
+        div.title {
+          font-size: 2rem;
+        }
+        div.description {
+          padding-top: 1rem;
+          font-size: 0.8rem;
+        }
+        div.content {
+          button {
+            margin: 1rem 0rem;
+          }
+          div.input-group {
+            width: 22rem;
+            margin: 0px auto;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "lang": "AR",
+  "language": "Arabic",
+  "direction": "rtl",
+  "rtl": "true",
+  "ar": true,
+  "headerTitle": "الملتقى الشبابي القيادي",
+  "home": "الرئيسية",
+  "categories": "التصنيفات",
+  "books": "الكتب",
+  "search": "البحث",
+  "bookName": "أسم الكتاب",
+  "category": "الصنف",
+  "author": "الكاتب"
+}

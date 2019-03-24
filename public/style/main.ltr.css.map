@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,CAAC,CAAC;EACA,SAAS,EAAE,GAAG;CACf",
+    "sources": [
+        "main.ltr.scss"
+    ],
+    "names": [],
+    "file": "main.ltr.css"
+}

@@ -1,0 +1,15 @@
+{
+  "lang": "EN",
+  "language": "English",
+  "direction": "ltr",
+  "ltr": true,
+  "en": true,
+  "headerTitle": "YLF",
+  "home": "Home",
+  "categories": "Categories",
+  "books": "books",
+  "search": "Search",
+  "bookName": "Book's Name",
+  "category": "Category",
+  "author": "Author"
+}

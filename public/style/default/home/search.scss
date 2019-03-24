@@ -1,0 +1,45 @@
+@import "../variables";
+.result {
+  background-color: white;
+  border: 1px solid #ccc;
+  margin: 5px;
+  padding: 5px;
+  min-width: 200px;
+  max-width: 400px;
+  list-style-type: none;
+  width: 400px;
+  ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0%;
+  }
+}
+.result > ul > li {
+  width: 38%;
+  display: inline-table;
+}
+.result > ul > li.value {
+  width: 60%;
+}
+.result > ul > li.title > ul > li {
+  display: inline-table;
+}
+.result > ul > li.title > ul > li.icon {
+  background-color: $color5;
+  color: white;
+  border-radius: 2px;
+  width: 20px;
+  display: inline-block;
+}
+footer {
+  .title {
+    font-size: 22px;
+    margin: 15px 0px;
+    border-bottom: 1px solid #ccc;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .result {
+    max-width: 100%;
+  }
+}

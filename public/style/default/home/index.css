@@ -1,0 +1,27 @@
+#index > div > div {
+  padding: 5px;
+}
+
+#index div div div.container {
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+#index div div div.container div.title {
+  font-size: 2rem;
+}
+
+#index div div div.container div.description {
+  padding-top: 1rem;
+  font-size: 0.8rem;
+}
+
+#index div div div.container div.content button {
+  margin: 1rem 0rem;
+}
+
+#index div div div.container div.content div.input-group {
+  width: 22rem;
+  margin: 0px auto;
+}
+/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,14 @@
+footer {
+  background-color: #152432;
+  color: white;
+  opacity: 0.8;
+}
+
+footer .row {
+  margin: 0;
+}
+
+footer .row .container {
+  padding: 0;
+}
+/*# sourceMappingURL=footer.css.map */

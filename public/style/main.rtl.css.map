@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,CAAC,CAAC;EACA,SAAS,EAAE,GAAG;CACf",
+    "sources": [
+        "main.rtl.scss"
+    ],
+    "names": [],
+    "file": "main.rtl.css"
+}

@@ -1,0 +1,56 @@
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-136837914-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-136837914-2');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+{{#if texts.rtl}}
+<link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.0.0/css/bootstrap.min.css"
+    integrity="sha384-P4uhUIGk/q1gaD/NdgkBIl3a6QywJjlsFJFk7SPRdruoGddvRVSwv5qFnvZ73cpz" crossorigin="anonymous">
+<link rel="stylesheet" href="/style/main.rtl.css">
+{{else}}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="/style/main.ltr.css">
+{{/if}}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+{{#if texts.ar}}
+<link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
+<style>
+    *:not(.fas) {
+        font-family: 'Cairo', sans-serif !important;
+    }
+</style>
+{{else}}
+{{#if texts.en}}
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+<style>
+    *:not(.fas) {
+        font-family: 'Poppins', sans-serif;
+    }
+</style>
+{{else}}
+{{#if texts.ku}}
+<link href="http://services.webchin.org/web-fonts/web-font?font=UbuntuKurdish0-81met" rel="stylesheet" type="text/css">
+<style>
+    *:not(.fas) {
+        font-family: "Ubuntu Kurdish";
+    }
+</style>
+{{else}}
+
+{{/if}}
+{{/if}}
+{{/if}}

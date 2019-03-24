@@ -1,0 +1,10 @@
+nav {
+  background-color: #f67280;
+}
+
+nav .navbar-brand i {
+  padding: 5px;
+  border-radius: 5px 0 5px 0;
+  border: 1px solid white;
+}
+/*# sourceMappingURL=navbar.css.map */

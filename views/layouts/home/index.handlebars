@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {{>headContent}}
+
+    <link rel="stylesheet" href="/style/{{defaultStlye}}/main.css">
+    <title>Document</title>
+</head>
+
+<body>
+    {{>home/header}}
+    {{>home/navbar}}
+    <section id="realBody">
+        {{{body}}}
+    </section>
+    {{>home/footer}}
+    {{>footerContent}}
+</body>
+
+</html>

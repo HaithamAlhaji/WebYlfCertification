@@ -1,0 +1,32 @@
+@import '../variables';
+header {
+  .jumbotron {
+    background-color: $color5;
+    margin: 0;
+  }
+  #logo {
+    background-color: $color2;
+    color: white;
+    display: inline-block;
+    padding: 15px;
+    border-radius: 5px 0 5px 0;
+  }
+  color: white;
+  #description {
+    opacity: 0.5;
+  }
+  #search {
+    direction: ltr;
+    div {
+      input {
+        font-size: 22px;
+      }
+      div {
+        button {
+          height: 100%;
+          direction: rtl;
+        }
+      }
+    }
+  }
+}

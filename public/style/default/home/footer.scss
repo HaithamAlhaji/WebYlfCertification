@@ -1,0 +1,12 @@
+@import '../variables';
+footer {
+  background-color: $color6;
+  color: white;
+  opacity: 0.8;
+  .row {
+    margin: 0;
+    .container {
+      padding: 0;
+    }
+  }
+}
