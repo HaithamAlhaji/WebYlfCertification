@@ -99,8 +99,6 @@ router.post("/download", (req, res) => {
             )
             .pipe(fs.createWriteStream(filePath))
             .on("finish", function() {
-              console.log("PDF closed");
-              console.log(filePath);
               fs.readFile(filePath, function(err, data) {
                 res.contentType("application/pdf");
                 console.log(err);
