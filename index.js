@@ -19,24 +19,27 @@ var defaults = {
 const app = express();
 
 //
-const mysqlConnection = mysql.createConnection({
+const mysqlConnection = mysql.createPool({
   host: constants.mysql.host,
   user: constants.mysql.username,
   password: constants.mysql.password,
   database: constants.mysql.database
 });
-mysqlConnection.connect();
-mysqlConnection.query("select 1;", (errors, results, fields) => {
-  if (errors) {
-    throw errors;
-  } else {
-  }
+mysqlConnection.getConnection((err, connection) => {
+  connection;
+  connection.query("select 1;", (errors, results, fields) => {
+    if (errors) {
+      throw errors;
+    } else {
+    }
+  });
+  connection.release();
 });
 
+global.mysqlConnection = mysqlConnection;
 //
 app.set("defaultStyle", defaults.style);
 app.set("view engine", "handlebars");
-app.set("mysqlConnection", mysqlConnection);
 
 //
 app.engine(

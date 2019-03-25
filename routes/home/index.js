@@ -57,66 +57,68 @@ router.get("/book/:id", (req, res) => {
 
 router.post("/download", (req, res) => {
   if (req.body.member_name) {
-    const defaultStyle = req.app.get("defaultStyle");
-    const mysqlConnection = req.app.get("mysqlConnection");
+    mysqlConnection.getConnection((err, connection) => {
+      const sql = `select 'haitham' as \`result\` from tbl_ylf_memebers where name = ${mysqlConnection.escape(
+        req.body.member_name
+      )};`;
 
-    const sql = `select 'haitham' as \`result\` from tbl_ylf_memebers where name = ${mysqlConnection.escape(
-      req.body.member_name
-    )};`;
-    mysqlConnection.query(sql, (errors, results, fields) => {
-      if (errors) {
-        throw errors;
-      } else {
-        if (results.length > 0 && results[0].result == "haitham") {
-          var fs = require("fs");
-          var PDFDocument = require("pdfkit");
-          const blobStream = require("blob-stream");
-          const uniqueName = require("unique-filename");
-          var pdf = new PDFDocument({
-            size: "A4", // See other page sizes here: https://github.com/devongovett/pdfkit/blob/d95b826475dd325fb29ef007a9c1bf7a527e9808/lib/page.coffee#L69
-            layout: "landscape",
-            info: {
-              Title: "Tile of File Here",
-              Author: "Some Author"
-            }
-          });
-          const filePath = uniqueName("./public/tmp/") + ".pdf";
-          pdf
-            .font("./public/fonts/Cairo-Regular.ttf")
-            .fontSize("40")
-            .image("./public/uploads/1.png", 0, 0, { scale: 0.25 })
-            .text(
-              req.body.member_name
-                .toString()
-                .split(" ")
-                .reverse()
-                .join(" "),
-              {
-                align: "right"
-              },
-              200,
-              100
-            )
-            .pipe(fs.createWriteStream(filePath))
-            .on("finish", function() {
-              fs.readFile(filePath, function(err, data) {
-                res.contentType("application/pdf");
-                console.log(err);
-                res.send(data);
-              });
-            });
-
-          // Close PDF and write file.
-          pdf.end();
+      connection.query(sql, (errors, results, fields) => {
+        if (errors) {
+          throw errors;
         } else {
-          const defaultStyle = req.app.get("defaultStyle");
-          res.render("home/index", {
-            item: "index" /* For navbar active */,
-            defaultStyle: defaultStyle,
-            certification: false
-          });
+          if (results.length > 0 && results[0].result == "haitham") {
+            var fs = require("fs");
+            var PDFDocument = require("pdfkit");
+            const uniqueName = require("unique-filename");
+            var pdf = new PDFDocument({
+              size: "A4", // See other page sizes here: https://github.com/devongovett/pdfkit/blob/d95b826475dd325fb29ef007a9c1bf7a527e9808/lib/page.coffee#L69
+              layout: "landscape",
+              info: {
+                Title: "Tile of File Here",
+                Author: "Some Author"
+              }
+            });
+            const filePath = uniqueName("./public/tmp/") + ".pdf";
+            pdf
+              .font("./public/fonts/Cairo-Regular.ttf")
+              .fontSize("40")
+              .image("./public/uploads/1.png", 0, 0, { scale: 0.25 })
+              .text(
+                req.body.member_name
+                  .toString()
+                  .split(" ")
+                  .reverse()
+                  .join(" "),
+                {
+                  align: "right"
+                },
+                200,
+                100
+              )
+              .pipe(fs.createWriteStream(filePath))
+              .on("finish", function() {
+                fs.readFile(filePath, function(err, data) {
+                  res.contentType("application/pdf");
+                  console.log(err);
+                  res.send(data);
+                });
+              });
+
+            // Close PDF and write file.
+            pdf.end();
+          } else {
+            const defaultStyle = req.app.get("defaultStyle");
+            //mysqlConnection.end();
+            res.render("home/index", {
+              item: "index" /* For navbar active */,
+              defaultStyle: defaultStyle,
+              certification: false
+            });
+          }
         }
-      }
+      });
+      //
+      connection.release();
     });
   }
 });
