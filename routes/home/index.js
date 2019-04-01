@@ -82,18 +82,18 @@ router.post("/download", (req, res) => {
             pdf
               .font("./public/fonts/Cairo-Regular.ttf")
               .fontSize("40")
-              .image("./public/uploads/1.png", 0, 0, { scale: 0.25 })
+              .image("./public/uploads/1.png", 0, 0, { scale: 0.24 })
               .text(
                 req.body.member_name
                   .toString()
                   .split(" ")
                   .reverse()
                   .join(" "),
-                {
-                  align: "right"
-                },
-                200,
-                100
+
+                req.body.member_name.toString().split(" ").length == 3
+                  ? 280
+                  : 200,
+                250
               )
               .pipe(fs.createWriteStream(filePath))
               .on("finish", function() {
