@@ -3,12 +3,12 @@ header {
 }
 
 header .jumbotron {
-  background-color: #355c7d;
+  background-color: #0296a4;
   margin: 0;
 }
 
 header #logo {
-  background-color: #f67280;
+  background-color: #543293;
   color: white;
   display: inline-block;
   padding: 15px;
