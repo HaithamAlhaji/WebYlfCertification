@@ -63,6 +63,8 @@ router.post("/download", (req, res) => {
       )};`;
 
       connection.query(sql, (errors, results, fields) => {
+        console.log(errors);
+
         if (errors) {
           throw errors;
         } else {
