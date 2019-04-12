@@ -58,7 +58,7 @@ router.get("/book/:id", (req, res) => {
 router.post("/download", (req, res) => {
   if (req.body.member_name) {
     mysqlConnection.getConnection((err, connection) => {
-      const sql = `select 'haitham' as \`result\` from tbl_ylf_memebers where name = ${mysqlConnection.escape(
+      const sql = `select 'haitham' as \`result\`,tbl_ylf_memebers.version  from tbl_ylf_memebers where name = ${mysqlConnection.escape(
         req.body.member_name
       )};`;
 
@@ -79,33 +79,38 @@ router.post("/download", (req, res) => {
               }
             });
             const filePath = uniqueName("./public/tmp/") + ".pdf";
-            pdf
-              .font("./public/fonts/Cairo-Regular.ttf")
-              .fontSize("40")
-              .image("./public/uploads/1.png", 0, 0, { scale: 0.24 })
-              .text(
-                req.body.member_name
-                  .toString()
-                  .split(" ")
-                  .reverse()
-                  .join(" "),
+            if (results[0].version == 0) {
+              // الانبار
+              pdf
+                .font("./public/fonts/Cairo-Regular.ttf")
+                .fontSize("40")
+                .image("./public/uploads/1.png", 0, 0, { scale: 0.24 })
+                .text(
+                  req.body.member_name
+                    .toString()
+                    .split(" ")
+                    .reverse()
+                    .join(" "),
 
-                req.body.member_name.toString().split(" ").length == 3
-                  ? 280
-                  : 200,
-                250
-              )
-              .pipe(fs.createWriteStream(filePath))
-              .on("finish", function() {
-                fs.readFile(filePath, function(err, data) {
-                  res.contentType("application/pdf");
-                  console.log(err);
-                  res.send(data);
+                  req.body.member_name.toString().split(" ").length == 3
+                    ? 280
+                    : 200,
+                  250
+                )
+                .pipe(fs.createWriteStream(filePath))
+                .on("finish", function() {
+                  fs.readFile(filePath, function(err, data) {
+                    res.contentType("application/pdf");
+                    console.log(err);
+                    res.send(data);
+                  });
                 });
-              });
 
-            // Close PDF and write file.
-            pdf.end();
+              // Close PDF and write file.
+              pdf.end();
+            } else {
+              // بابل
+            }
           } else {
             const defaultStyle = req.app.get("defaultStyle");
             //mysqlConnection.end();
