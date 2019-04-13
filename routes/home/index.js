@@ -110,8 +110,36 @@ router.post("/download", (req, res) => {
 
               // Close PDF and write file.
               pdf.end();
+            } else if (results[0].version == 1) {
+              // شكر عاملين الانبار
+              pdf
+                .font("./public/fonts/Cairo-Regular.ttf")
+                .fontSize("40")
+                .image("./public/uploads/2.png", 0, 0, { scale: 0.24 })
+                .text(
+                  req.body.member_name
+                    .toString()
+                    .split(" ")
+                    .reverse()
+                    .join(" "),
+
+                  req.body.member_name.toString().split(" ").length == 3
+                    ? 280
+                    : 200,
+                  250
+                )
+                .pipe(fs.createWriteStream(filePath))
+                .on("finish", function() {
+                  fs.readFile(filePath, function(err, data) {
+                    res.contentType("application/pdf");
+                    console.log(err);
+                    res.send(data);
+                  });
+                });
+
+              // Close PDF and write file.
+              pdf.end();
             } else {
-              // بابل
             }
           } else {
             const defaultStyle = req.app.get("defaultStyle");
