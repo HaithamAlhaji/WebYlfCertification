@@ -17,7 +17,7 @@ var defaults = {
 
 //
 const app = express();
-
+console.log(constants.mysql.host);
 //
 const mysqlConnection = mysql.createPool({
   host: constants.mysql.host,
