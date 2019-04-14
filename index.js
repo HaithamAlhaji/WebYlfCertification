@@ -9,7 +9,6 @@ const constants = require("./config/constants"),
   flash = require("connect-flash"),
   mysql = require("mysql"),
   bodyParser = require("body-parser");
-
 var defaults = {
   style: "default",
   language: "ar"
@@ -17,7 +16,7 @@ var defaults = {
 
 //
 const app = express();
-console.log(constants.mysql.host);
+
 //
 const mysqlConnection = mysql.createPool({
   host: constants.mysql.host,
