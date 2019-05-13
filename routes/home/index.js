@@ -68,7 +68,8 @@ router.post("/download", (req, res) => {
         if (errors) {
           throw errors;
         } else {
-          if (results.length > 0 && results[0].result == "haitham") {
+          if (true || (results.length > 0 && results[0].result == "haitham")) {
+            // ملتقى بابل كل الاسماء ممكن تاخذ شهادة true
             var fs = require("fs");
             var PDFDocument = require("pdfkit");
             const uniqueName = require("unique-filename");
@@ -76,17 +77,17 @@ router.post("/download", (req, res) => {
               size: "A4", // See other page sizes here: https://github.com/devongovett/pdfkit/blob/d95b826475dd325fb29ef007a9c1bf7a527e9808/lib/page.coffee#L69
               layout: "landscape",
               info: {
-                Title: "Tile of File Here",
-                Author: "Some Author"
+                Title: "Youthlf",
+                Author: "Hatiham Alhaji"
               }
             });
             const filePath = uniqueName("./public/tmp/") + ".pdf";
-            if (results[0].version == 0) {
+            if (true || results[0].version == 0) {
               // الانبار
               pdf
                 .font("./public/fonts/Cairo-Regular.ttf")
                 .fontSize("40")
-                .image("./public/uploads/1.png", 0, 0, { scale: 0.24 })
+                .image("./public/uploads/3.png", 0, 0, { scale: 0.24 })
                 .text(
                   req.body.member_name
                     .toString()
@@ -97,7 +98,7 @@ router.post("/download", (req, res) => {
                   req.body.member_name.toString().split(" ").length == 3
                     ? 280
                     : 200,
-                  250
+                  220
                 )
                 .pipe(fs.createWriteStream(filePath))
                 .on("finish", function() {
@@ -139,7 +140,36 @@ router.post("/download", (req, res) => {
 
               // Close PDF and write file.
               pdf.end();
-            } else {
+            } else if (true) {
+              // ملتقى بابل كل الاسماء ممكن تاخذ شهادة true
+
+              pdf
+                .font("./public/fonts/Cairo-Regular.ttf")
+                .fontSize("40")
+                .image("./public/uploads/3.png", 0, 0, { scale: 0.24 })
+                .text(
+                  req.body.member_name
+                    .toString()
+                    .split(" ")
+                    .reverse()
+                    .join(" "),
+
+                  req.body.member_name.toString().split(" ").length == 3
+                    ? 280
+                    : 200,
+                  250
+                )
+                .pipe(fs.createWriteStream(filePath))
+                .on("finish", function() {
+                  fs.readFile(filePath, function(err, data) {
+                    res.contentType("application/pdf");
+                    console.log(err);
+                    res.send(data);
+                  });
+                });
+
+              // Close PDF and write file.
+              pdf.end();
             }
           } else {
             const defaultStyle = req.app.get("defaultStyle");
