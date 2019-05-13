@@ -6,7 +6,27 @@
     {{>headContent}}
 
     <link rel="stylesheet" href="/style/{{defaultStlye}}/main.css">
+    <!-- HTML Meta Tags -->
     <title>{{texts.headerTitle}}</title>
+    <meta name="description" content="{{texts.headerTitle}}">
+
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="{{texts.headerTitle}}">
+    <meta itemprop="description" content="{{texts.headerTitle}}">
+    <meta itemprop="image" content="./uploads/icon.png">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="http://cf.youthlf.com">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{texts.headerTitle}}">
+    <meta property="og:description" content="{{texts.headerTitle}}">
+    <meta property="og:image" content="./uploads/icon.png">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{texts.headerTitle}}">
+    <meta name="twitter:description" content="{{texts.headerTitle}}">
+    <meta name="twitter:image" content="./uploads/icon.png">
 </head>
 
 <body>
