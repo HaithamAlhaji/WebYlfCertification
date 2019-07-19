@@ -61,7 +61,7 @@ router.post("/download", (req, res) => {
                     : results[0].name.toString().split(" ").length == 2
                     ? 530
                     : results[0].name.toString().split(" ").length == 3
-                    ? 300
+                    ? 450
                     : results[0].name.toString().split(" ").length == 4
                     ? 400
                     : 400,
@@ -77,66 +77,6 @@ router.post("/download", (req, res) => {
                     res.send(data);
                   });
                 });
-              console.log(results[0].name.toString().split(" ").length);
-              // Close PDF and write file.
-              pdf.end();
-            } else if (results[0].version == 1) {
-              // شكر عاملين الانبار
-              pdf
-                .font("./public/fonts/Cairo-Regular.ttf")
-                .fontSize("40")
-                .image("./public/uploads/2.png", 0, 0, { scale: 0.24 })
-                .text(
-                  req.body.member_name
-                    .toString()
-                    .split(" ")
-                    .reverse()
-                    .join(" "),
-
-                  req.body.member_name.toString().split(" ").length == 3
-                    ? 280
-                    : 200,
-                  250
-                )
-                .pipe(fs.createWriteStream(filePath))
-                .on("finish", function() {
-                  fs.readFile(filePath, function(err, data) {
-                    res.contentType("application/pdf");
-                    console.log(err);
-                    res.send(data);
-                  });
-                });
-
-              // Close PDF and write file.
-              pdf.end();
-            } else if (true) {
-              // ملتقى بابل كل الاسماء ممكن تاخذ شهادة true
-
-              pdf
-                .font("./public/fonts/Cairo-Regular.ttf")
-                .fontSize("40")
-                .image("./public/uploads/3.png", 0, 0, { scale: 0.24 })
-                .text(
-                  req.body.member_name
-                    .toString()
-                    .split(" ")
-                    .reverse()
-                    .join(" "),
-
-                  req.body.member_name.toString().split(" ").length == 3
-                    ? 280
-                    : 200,
-                  250
-                )
-                .pipe(fs.createWriteStream(filePath))
-                .on("finish", function() {
-                  fs.readFile(filePath, function(err, data) {
-                    res.contentType("application/pdf");
-                    console.log(err);
-                    res.send(data);
-                  });
-                });
-
               // Close PDF and write file.
               pdf.end();
             }
