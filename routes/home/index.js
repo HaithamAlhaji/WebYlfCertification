@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
   });
 });
 
-router.post("/download", (req, res) => {
+router.post("/download.pdf", (req, res) => {
   if (req.body.member_email) {
     mysqlConnection.getConnection((err, connection) => {
       const sql = `select email,version,name,serial_number from tbl_ylf_memebers WHERE email = ${mysqlConnection.escape(
@@ -37,7 +37,9 @@ router.post("/download", (req, res) => {
               margin: 0,
               info: {
                 Title: "Youthlf",
-                Author: "Hatiham Alhaji"
+                Author: "Hatiham Alhaji",
+                Producer: "Hatiham Alhaji",
+                Creator: "Hatiham Alhaji"
               }
             });
             const filePath = uniqueName("./public/tmp/") + ".pdf";
