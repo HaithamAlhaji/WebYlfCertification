@@ -45,7 +45,12 @@ app.engine(
   "handlebars",
   expressHandlebars({
     defaultLayout: "home/index",
-    helpers: { defaultStlye: defaults.style }
+    helpers: {
+      defaultStlye: defaults.style,
+      ifEquals: function(arg1, arg2, options) {
+        return arg1 == arg2 ? options.fn(this) : options.inverse(this);
+      }
+    }
   })
 );
 
@@ -74,6 +79,8 @@ app.set("bodyParser", bodyParser);
 app.use("/", home);
 app.use("/admin", admin);
 app.use(express.static(path.join(__dirname, "public")));
+
+//
 
 //
 app.listen(constants.express.port, () => {});

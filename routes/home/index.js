@@ -12,6 +12,43 @@ router.get("/", (req, res) => {
     defaultStyle: defaultStyle
   });
 });
+router.get("/verifyCertification", (req, res) => {
+  const defaultStyle = req.app.get("defaultStyle");
+  res.render("home/verifyCertification", {
+    item: "verify" /* For navbar active */,
+    defaultStyle: defaultStyle
+  });
+});
+router.post("/verifyCertification", (req, res) => {
+  const defaultStyle = req.app.get("defaultStyle");
+  var verify = "false";
+  var creation = "NaN";
+  var name = "NONE";
+  mysqlConnection.getConnection((err, connection) => {
+    const sql = `select DATE_FORMAT(date(creation), '%Y-%m-%d')  as creation,name from tbl_ylf_memebers where serial_number = '${
+      req.body.serial_number
+    }';`;
+    connection.query(sql, (errors, results, fields) => {
+      console.log(results.length > 0);
+      if (results.length > 0) {
+        verify = "true";
+        creation = results[0].creation;
+        name = results[0].name;
+        console.log(name);
+      }
+      console.log(name);
+      res.render("home/verifyCertification", {
+        item: "verify" /* For navbar active */,
+        defaultStyle: defaultStyle,
+        verify: verify,
+        creation: creation,
+        name: name
+      });
+    });
+
+    connection.release();
+  });
+});
 
 router.post("/download.pdf", (req, res) => {
   if (req.body.member_email) {
