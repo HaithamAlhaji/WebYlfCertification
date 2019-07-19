@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col">
             <div class="container">
-                <div class="title">نراكم في الملتقى القادم :)</div>
-                {{!-- <div class="description">
+                {{!-- <div class="title">نراكم في الملتقى القادم :)</div> --}}
+                <div class="description">
                     <ul>
                         <li>الموقع مخصص لشهادات المشاركة الخاصة بملتقى الشباب القيادي - بابل.</li>
                         <li>يرجى إدخال اسمك باللغة العربية كما تم إدخاله في استمارة التسجيل أو كما هو موجود في القوائم
@@ -22,16 +22,18 @@
                 <div class="content">
                     <form method="post" action="/download">
                         <div class="input-group">
+
+                            <input name="member_email" class="form-control" type="text"
+                                placeholder="haithamtlalhaji@yahoo.com" required maxlength="100" minlength="8"
+                                style="direction: ltr;">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">الأسم</span>
+                                <span class="input-group-text">Email</span>
                             </div>
-                            <input name="member_name" class="form-control" type="text" placeholder="محمد احمد مصطفى"
-                                required maxlength="100" minlength="8">
                         </div>
                         <button class="btn btn-block " type="submit"
                             style="background-color:#543293;color:white;">تحميل</button>
                     </form>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>

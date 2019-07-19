@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 header {
   .jumbotron {
     background-color: $color5;
@@ -10,6 +10,12 @@ header {
     display: inline-block;
     padding: 15px;
     border-radius: 5px 0 5px 0;
+
+    #logoImage {
+      height: 100px;
+      width: 100px;
+      background-image: url("/uploads/logo_white.png");
+    }
   }
   color: white;
   #description {

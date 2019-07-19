@@ -11,5 +11,7 @@
   "search": "البحث",
   "bookName": "أسم الكتاب",
   "category": "الصنف",
-  "author": "الكاتب"
+  "author": "الكاتب",
+  "downloadCertification": "تحميل الشهادة",
+  "verifyCertification": "تأكيد الشهادة"
 }
