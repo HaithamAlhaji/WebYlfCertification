@@ -54,19 +54,23 @@ router.post("/download", (req, res) => {
                   0,
                   { scale: 0.24 }
                 )
-                .text(
-                  results[0].name,
-                  results[0].name.toString().split(" ").length == 1
-                    ? 300
-                    : results[0].name.toString().split(" ").length == 2
-                    ? 530
-                    : results[0].name.toString().split(" ").length == 3
-                    ? 450
-                    : results[0].name.toString().split(" ").length == 4
-                    ? 400
-                    : 400,
-                  240
-                )
+                // .text(
+                //   results[0].name,
+                //   results[0].name.toString().split(" ").length == 1
+                //     ? 300
+                //     : results[0].name.toString().split(" ").length == 2
+                //     ? 530
+                //     : results[0].name.toString().split(" ").length == 3
+                //     ? 450
+                //     : results[0].name.toString().split(" ").length == 4
+                //     ? 400
+                //     : 400,
+                //   240,
+                // )
+                .text(results[0].name, 360, 240, {
+                  align: "center",
+                  width: 450
+                })
                 .fontSize("16")
                 .text(results[0].serial_number, 375, 528)
                 .pipe(fs.createWriteStream(filePath))
