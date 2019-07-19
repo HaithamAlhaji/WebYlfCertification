@@ -60,14 +60,14 @@ router.post("/download", (req, res) => {
                 })
                 .fontSize("16")
                 .text(results[0].serial_number, 375, 528)
-                .pipe(fs.createWriteStream(filePath))
-                .on("finish", function() {
-                  fs.readFile(filePath, function(err, data) {
-                    res.contentType("application/pdf");
-                    console.log(err);
-                    res.send(data);
-                  });
-                });
+                .pipe(res);
+              // .on("finish", function() {
+              //   fs.readFile(filePath, function(err, data) {
+              //     res.contentType("application/pdf");
+              //     console.log(err);
+              //     res.send(data);
+              //   });
+              // })
               // Close PDF and write file.
               pdf.end();
             }
