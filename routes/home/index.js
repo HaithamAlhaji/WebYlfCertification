@@ -50,8 +50,8 @@ router.post("/download.pdf", (req, res) => {
                 .fontSize("23")
                 .image(
                   results[0].member_type == 0
-                    ? "./public/uploads/4.png"
-                    : "./public/uploads/5.png",
+                    ? "./public/uploads/5.png"
+                    : "./public/uploads/4.png",
                   0,
                   0,
                   { scale: 0.24 }
