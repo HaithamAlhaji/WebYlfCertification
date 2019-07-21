@@ -86,7 +86,7 @@ router.post("/download.pdf", (req, res) => {
                 .font("./public/fonts/FONT BOLD.otf")
                 .fontSize("23")
                 .image(
-                  results[0].member_type == 0
+                  results[0].member_type == "0"
                     ? "./public/uploads/5.png"
                     : "./public/uploads/4.png",
                   0,
