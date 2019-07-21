@@ -53,7 +53,7 @@ router.post("/verifyCertification", (req, res) => {
 router.post("/download.pdf", (req, res) => {
   if (req.body.member_email) {
     mysqlConnection.getConnection((err, connection) => {
-      const sql = `select email,version,name,serial_number from tbl_ylf_memebers WHERE email = ${mysqlConnection.escape(
+      const sql = `select email,version,name,serial_number,member_type from tbl_ylf_memebers WHERE email = ${mysqlConnection.escape(
         req.body.member_email
       )};`;
 
@@ -82,13 +82,14 @@ router.post("/download.pdf", (req, res) => {
             const filePath = uniqueName("./public/tmp/") + ".pdf";
             if (results[0].version == 2) {
               // الملتقى الخامس
+              console.log(results[0].member_type);
               pdf
                 .font("./public/fonts/FONT BOLD.otf")
                 .fontSize("23")
                 .image(
                   results[0].member_type == "0"
-                    ? "./public/uploads/5.png"
-                    : "./public/uploads/4.png",
+                    ? "./public/uploads/4.png"
+                    : "./public/uploads/5.png",
                   0,
                   0,
                   { scale: 0.24 }
