@@ -47,10 +47,15 @@ router.post("/verifyCertification", (req, res) => {
 router.post("/certifications", (req, res) => {
   if (req.body.member_email) {
     const defaultStyle = req.app.get("defaultStyle");
+
     mysqlConnection.getConnection((err, connection) => {
       const sqlClientInfo = `SELECT id,email, name_ar, name_en, (SELECT COUNT(*) FROM tbl_certifications WHERE client_id = clients.id) AS \`certifications_count\` FROM tbl_clients clients WHERE clients.email = '${req.body.member_email}'`;
       var clientInfo;
       connection.query(sqlClientInfo, (errors, results, fields) => {
+        if (results.length == 0) {
+          res.redirect("/");
+          return;
+        }
         clientInfo = {
           id: results[0].id,
           email: req.body.member_email,
