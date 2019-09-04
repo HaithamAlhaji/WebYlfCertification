@@ -18,12 +18,12 @@ header #logo {
 header #logo #logoImage {
   height: 100px;
   width: 100px;
-  background-image: url("/uploads/logo_white.png");
+  background-image: url("http://localhost:3000/img/logo_white.png");
+  background-position: center;
+  background-clip: content-box;
+  background-origin: content-box;
   background-repeat: no-repeat;
   background-size: contain;
-  background-origin: content-box;
-  background-clip: content-box;
-  background-position: center;
 }
 
 header #description {

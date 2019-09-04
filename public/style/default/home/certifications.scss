@@ -1,0 +1,21 @@
+@import "../variables";
+#certifcations {
+  .title {
+    font-size: 26px;
+    opacity: 0.6;
+  }
+  .download {
+    background-color: $color2;
+    color: white;
+  }
+  .certifications {
+    .name {
+      font-weight: bold;
+      text-align: center;
+    }
+    .description {
+      text-align: justify;
+      font-size: 12px;
+    }
+  }
+}

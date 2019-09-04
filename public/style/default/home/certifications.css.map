@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AACA,AACE,cADY,CACZ,MAAM,CAAC;EACL,SAAS,EAAE,IAAI;EACf,OAAO,EAAE,GAAG;CACb;;AAJH,AAKE,cALY,CAKZ,SAAS,CAAC;EACR,gBAAgB,ECFX,OAAO;EDGZ,KAAK,EAAE,KAAK;CACb;;AARH,AAUI,cAVU,CASZ,eAAe,CACb,KAAK,CAAC;EACJ,WAAW,EAAE,IAAI;EACjB,UAAU,EAAE,MAAM;CACnB;;AAbL,AAcI,cAdU,CASZ,eAAe,CAKb,YAAY,CAAC;EACX,UAAU,EAAE,OAAO;EACnB,SAAS,EAAE,IAAI;CAChB",
+    "sources": [
+        "certifications.scss",
+        "../_variables.scss"
+    ],
+    "names": [],
+    "file": "certifications.css"
+}

@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="/style/{{defaultStyle}}/home/certifications.css">
+<div id="certifcations">
+    <div class="title">
+        <i class="fas fa-user-check"></i>
+        {{texts.clientInfo}}
+    </div>
+    <div class="row description">
+        <div class="col-md-3 input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                    {{texts.clientNameEn}}
+                </div>
+            </div>
+            <input type="text" class="form-control" value="{{clientInfo.nameEn}}" readonly>
+        </div>
+        <div class="col-md-4 input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-envelope"></i>
+                    {{texts.clientEmail}}
+                </div>
+            </div>
+            <input type="text" class="form-control" value="{{clientInfo.email}}" readonly>
+        </div>
+        <div class="col-md-3 input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                    {{texts.clientNameAr}}
+                </div>
+            </div>
+            <input type="text" class="form-control" value="{{clientInfo.nameAr}}" readonly>
+        </div>
+        <div class="col-md-2 input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-hashtag"></i>
+                    {{texts.certifications}}
+                </div>
+            </div>
+            <input type="text" class="form-control" value="{{clientInfo.certificationsCount}}" readonly>
+        </div>
+
+    </div>
+    <div class="title">
+        <i class="fas fa-certificate"></i>
+        {{texts.certifications}}
+    </div>
+    <div class="d-flex justify-content-center flex-wrap certifications">
+        {{#each clientCertifications}}
+        <div class="card mx-2" style="width: 18rem;">
+            <img src="/img/certifications/backgrounds/{{background}}" class="card-img-top">
+            <div class="card-body">
+                <p class="card-text name">{{name}}</p>
+                <hr>
+                <p class="card-text provider">{{provider}}</p>
+                <p class="card-text serialNumber">{{serial_number}}</p>
+                <p class="card-text description">{{description}}</p>
+                <hr>
+                <p class="card-text creation">{{creation}}</p>
+            </div>
+            <form style="width: 100%;" action="/{{id}}/download.pdf" method="POST">
+                <button type="submit" class="btn btn-primary btn-block download">
+                    <i class="fas fa-file-download"></i>
+                    تحميل الشهادة
+                </button>
+            </form>
+
+        </div>
+        {{/each}}
+
+
+
+    </div>
+
+
+</div>
