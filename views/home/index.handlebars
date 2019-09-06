@@ -20,6 +20,12 @@
                 </div>
 
                 <div class="content">
+                    {{#ifEquals isFound "false"}}
+                    <div class="alert alert-success">
+                        البريد الذي ادخلته لم يتم التعرف عليه {{email}}, تواصل مع الفريق التقني المشار اليه اعلاه.
+                    </div>
+                    {{/ifEquals}}
+
                     <form method="post" action="/certifications">
                         <div class="row">
                             <div class="col-sm-4"> </div>
@@ -36,7 +42,6 @@
                             <div class="col-sm-4"> </div>
 
                         </div>
-
                         <button class="btn btn-block " type="submit"
                             style="background-color:#543293;color:white;">تحميل</button>
                     </form>
