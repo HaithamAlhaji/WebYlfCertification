@@ -66,13 +66,16 @@ router.post("/verifyCertification", (req, res) => {
   });
 });
 router.post("/certifications", (req, res) => {
+  console.log("1");
   if (req.body.member_email) {
     const defaultStyle = req.app.get("defaultStyle");
-
+    console.log("2");
     mysqlConnection.getConnection((err, connection) => {
       const sqlClientInfo = `SELECT id,email, name_ar, name_en, (SELECT COUNT(*) FROM tbl_certifications WHERE client_id = clients.id) AS \`certifications_count\` FROM tbl_clients clients WHERE clients.email = '${req.body.member_email}'`;
       var clientInfo;
+      console.log("3");
       connection.query(sqlClientInfo, (errors, results, fields) => {
+        console.log("4");
         if (results.length == 0) {
           const sqlClientMissing = `insert into tbl_clients_missing (email) value ('${req.body.member_email}');`;
           connection.query(sqlClientMissing, (errors, results, fields) => {});
@@ -84,6 +87,7 @@ router.post("/certifications", (req, res) => {
           //res.redirect("/");
           return;
         }
+        console.log("5");
         clientInfo = {
           id: results[0].id,
           email: req.body.member_email,
@@ -92,6 +96,7 @@ router.post("/certifications", (req, res) => {
           certificationsCount: results[0].certifications_count
         };
         req.session.clientInfo = clientInfo;
+        console.log("6");
         mysqlConnection.getConnection((err, connection) => {
           const sqlClientCertifications = `
           SELECT
@@ -122,6 +127,7 @@ router.post("/certifications", (req, res) => {
           WHERE
             certifications.client_id = ${clientInfo.id};`;
           var clientCertifications = [];
+          console.log("7");
           connection.query(
             sqlClientCertifications,
             (errors, results, fields) => {
