@@ -73,12 +73,12 @@ app.use(
     siteLangs: ["en", "ar", "ku"]
   })
 );
+app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set("bodyParser", bodyParser);
 app.use("/", home);
 app.use("/admin", admin);
-app.use(express.static(path.join(__dirname, "public")));
 
 //
 

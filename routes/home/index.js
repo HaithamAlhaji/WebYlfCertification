@@ -235,5 +235,7 @@ router.get("/:id/download.pdf", (req, res) => {
     });
   });
 });
-
+router.get("*", (req, res) => {
+  res.redirect("/");
+});
 module.exports = router;
