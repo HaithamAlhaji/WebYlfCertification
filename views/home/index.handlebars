@@ -22,25 +22,39 @@
                 <div class="content">
                     {{#ifEquals isFound "false"}}
                     <div class="alert alert-danger">
-                        البريد الذي ادخلته لم يتم التعرف عليه {{email}}, تواصل مع الفريق التقني المشار اليه اعلاه.
+                        البريد الذي ادخلته لم يتم التعرف عليه {{email}} او المواليد {{birthday}}, تواصل مع الفريق التقني
+                        المشار اليه اعلاه.
                     </div>
                     {{/ifEquals}}
-
                     <form method="post" action="/certifications">
                         <div class="row">
                             <div class="col-sm-4"> </div>
                             <div class="col-sm-4">
                                 <div class="input-group">
-                                    <input name="member_email" class="form-control" type="text"
+
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-envelope"></i>
+                                            {{texts.email}}
+                                        </span>
+                                    </div>
+                                    <input name="client_email" class="form-control" type="text"
                                         placeholder="haithamtlalhaji@yahoo.com" required maxlength="100" minlength="8"
                                         style="direction: ltr;">
+                                </div>
+                                <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Email</span>
+                                        <span class="input-group-text">
+
+                                            <i class="fas fa-birthday-cake"></i>
+                                            {{texts.birthday}}
+                                        </span>
                                     </div>
+                                    <input name="client_birthday" type="text" style="direction: ltr;"
+                                        class="form-control" id="datepicker" required placeholder="1994-06-04">
                                 </div>
                             </div>
                             <div class="col-sm-4"> </div>
-
                         </div>
                         <button class="btn btn-block " type="submit"
                             style="background-color:#543293;color:white;">تحميل</button>
@@ -50,3 +64,14 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(() => {
+        $("#datepicker").datepicker({
+            dateFormat: "yy/mm/dd",
+            changeYear: true,
+            changeMonth: true,
+            yearRange: "-100:+0",
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>

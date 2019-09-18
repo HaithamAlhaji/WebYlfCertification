@@ -1,14 +1,14 @@
 const constants = require("./config/constants"),
   express = require("express"),
-  expressHandlebars = require("express-handlebars"),
-  path = require("path"),
-  home = require("./routes/home/index"),
-  admin = require("./routes/admin/index"),
-  i18n = require("i18n-express"),
-  session = require("express-session"),
-  flash = require("connect-flash"),
-  mysql = require("mysql"),
-  bodyParser = require("body-parser");
+  expressHandlebars = require("express-handlebars");
+(path = require("path")),
+  (home = require("./routes/home/index")),
+  (admin = require("./routes/admin/index")),
+  (i18n = require("i18n-express")),
+  (session = require("express-session")),
+  (flash = require("connect-flash")),
+  (mysql = require("mysql")),
+  (bodyParser = require("body-parser"));
 var defaults = {
   style: "default",
   language: "ar"
@@ -22,7 +22,8 @@ const mysqlConnection = mysql.createPool({
   host: constants.mysql.host,
   user: constants.mysql.username,
   password: constants.mysql.password,
-  database: constants.mysql.database
+  database: constants.mysql.database,
+  multipleStatements: true
 });
 mysqlConnection.getConnection((err, connection) => {
   connection;
@@ -36,6 +37,7 @@ mysqlConnection.getConnection((err, connection) => {
 });
 
 global.mysqlConnection = mysqlConnection;
+
 //
 app.set("defaultStyle", defaults.style);
 app.set("view engine", "handlebars");

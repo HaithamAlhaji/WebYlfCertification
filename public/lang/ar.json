@@ -19,5 +19,7 @@
   "clientInfo": "المعلومات الشخصية",
   "clientNameEn": "الأسم (بالانكليزي)",
   "clientEmail": "البريد الالكتروني",
-  "clientNameAr": "الأسم (بالعربي)"
+  "clientNameAr": "الأسم (بالعربي)",
+  "email": "البريد الألكتروني",
+  "birthday": "المواليد"
 }

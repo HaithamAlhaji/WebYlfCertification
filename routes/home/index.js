@@ -1,4 +1,6 @@
 const express = require("express"),
+  form = require("express-form"),
+  field = form.field,
   router = express.Router();
 
 router.all("*", (req, res, next) => {
@@ -65,34 +67,145 @@ router.post("/verifyCertification", (req, res) => {
     connection.release();
   });
 });
-router.post("/certifications", (req, res) => {
-  if (req.body.member_email) {
+router.get("/clientNotFound", (req, res) => {
+  if (
+    req.session.clientNotFound &&
+    (req.session.clientBirthday || req.session.clientEmail)
+  ) {
     const defaultStyle = req.app.get("defaultStyle");
+    var certifications = [];
     mysqlConnection.getConnection((err, connection) => {
-      const sqlClientInfo = `SELECT id,email, name_ar, name_en, (SELECT COUNT(*) FROM tbl_certifications WHERE client_id = clients.id) AS \`certifications_count\` FROM tbl_clients clients WHERE clients.email = '${req.body.member_email}'`;
-      var clientInfo;
-      connection.query(sqlClientInfo, (errors, results, fields) => {
-        if (results.length == 0) {
-          const sqlClientMissing = `insert into tbl_clients_missing (email) value ('${req.body.member_email}');`;
-          connection.query(sqlClientMissing, (errors, results, fields) => {});
-          res.render("home/index", {
-            isFound: "false",
-            email: req.body.member_email
-          });
+      const sqlGetCertifications = `
+        SELECT 
+          certifications_templates.id,
+          certifications_templates.name,
+          certifications_templates.provider,
+          certifications_templates.background
+          
+        FROM
+          tbl_certifications_templates certifications_templates
+      `;
 
-          //res.redirect("/");
-          return;
-        }
-        clientInfo = {
-          id: results[0].id,
-          email: req.body.member_email,
-          nameEn: results[0].name_en,
-          nameAr: results[0].name_ar,
-          certificationsCount: results[0].certifications_count
-        };
-        req.session.clientInfo = clientInfo;
-        mysqlConnection.getConnection((err, connection) => {
-          const sqlClientCertifications = `
+      connection.query(sqlGetCertifications, (errors, results, fields) => {
+        certifications = results;
+        res.render("home/clientNotFound", {
+          defaultStyle: defaultStyle,
+          email: req.session.clientEmail,
+          birthday: req.session.clientBirthday,
+          certifications: certifications
+        });
+      });
+      connection.release();
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+router.post(
+  "/clientNotFound",
+  form(
+    field("client_name_en")
+      .trim()
+      .required(),
+    field("client_name_ar")
+      .trim()
+      .required()
+  ),
+  (req, res) => {
+    if (req.form.isValid) {
+      const defaultStyle = req.app.get("defaultStyle");
+      const clientEmail = req.session.clientEmail;
+      const clientBirthday = req.session.clientBirthday;
+      const clientNameEn = req.body.client_name_en;
+      const clientNameAr = req.body.client_name_ar;
+      const certificationsId = req.body.certifications_id;
+
+      mysqlConnection.getConnection((err, connection) => {
+        const sqlAddMissingClient = `
+          INSERT IGNORE INTO tbl_clients_missing (email,name_en,name_ar,birthday,certifications) VALUE ('${clientEmail}','${clientNameEn}','${clientNameAr}','${clientBirthday}','${certificationsId}');
+        `;
+        connection.query(sqlAddMissingClient, (errors, results, fields) => {
+          res.render("home/clientNotFoundRegistered", {
+            defaultStyle: defaultStyle
+          });
+        });
+      });
+    } else {
+      res.redirect("/");
+    }
+  }
+);
+router.post(
+  "/certifications",
+  form(
+    field("client_email")
+      .trim()
+      .required()
+      .isEmail(),
+    field("client_birthday")
+      .trim()
+      .required()
+      .isDate()
+  ),
+  (req, res) => {
+    if (req.form.isValid) {
+      const defaultStyle = req.app.get("defaultStyle");
+      mysqlConnection.getConnection((err, connection) => {
+        //const client_birthday = new Date(req.body.client_birthday);
+        // console.log(
+        //   client_birthday.getFullYear() +
+        //     "-" +
+        //     client_birthday.getMonth() +
+        //     "-" +
+        //     client_birthday.getDay()
+        // );
+        const sqlClientInfo = `
+          SELECT
+            id,
+            email, 
+            name_ar, 
+            name_en,
+            birthday,
+            if(birthday IS NULL,1,if(birthday = '${req.body.client_birthday} 00:00:00',1,0)) AS \`birthday_result\`,
+            (SELECT COUNT(*) FROM tbl_certifications WHERE client_id = clients.id) AS \`certifications_count\`
+          FROM
+            tbl_clients clients
+          WHERE
+            clients.email = '${req.body.client_email}'
+          HAVING
+            birthday_result = 1`;
+        var clientInfo;
+        connection.query(sqlClientInfo, (errors, results, fields) => {
+          if (results.length == 0) {
+            //const sqlClientMissing = `insert into tbl_clients_missing (email) value ('${req.body.client_email}');`;
+            //connection.query(sqlClientMissing, (errors, results, fields) => {});
+            //res.render("home/clientNotFound", {});
+            req.session.clientNotFound = true;
+            req.session.clientEmail = req.body.client_email;
+            req.session.clientBirthday = req.body.client_birthday;
+            res.redirect("/clientNotFound");
+
+            // res.render("home/index", {
+            //   isFound: "false",
+            //   email: req.body.client_email,
+            //   birthday: req.body.client_birthday
+            // });
+
+            //res.redirect("/");
+            return;
+          }
+          clientInfo = {
+            id: results[0].id,
+            email: req.body.client_email,
+            nameEn: results[0].name_en,
+            nameAr: results[0].name_ar,
+            birthday: `${req.body.client_birthday} 00:00:00`,
+            certificationsCount: results[0].certifications_count
+          };
+          req.session.clientInfo = clientInfo;
+          mysqlConnection.getConnection((err, connection) => {
+            const sqlClientCertifications = `
+          update tbl_clients set birthday = '${clientInfo.birthday}' where id = '${clientInfo.id}';
           SELECT
             certifications.id,
             certifications_templates.name,
@@ -120,32 +233,37 @@ router.post("/certifications", (req, res) => {
             tbl_users users ON users.id = certifications.user_id
           WHERE
             certifications.client_id = ${clientInfo.id};`;
-          var clientCertifications = [];
-          connection.query(
-            sqlClientCertifications,
-            (errors, results, fields) => {
-              for (let index = 0; index < results.length; index++) {
-                const certification = results[index];
-                clientCertifications.push(certification);
+            var clientCertifications = [];
+            connection.query(
+              sqlClientCertifications,
+              (errors, results, fields) => {
+                if (errors) {
+                  console.log(errors);
+                }
+                // for (let index = 0; index < results.length; index++) {
+                //   const certification = results[index];
+                //   clientCertifications.push(certification);
+                // }
+                clientCertifications = results[1];
+                req.session.clientCertifications = clientCertifications;
+                res.render("home/certifications", {
+                  clientInfo: clientInfo,
+                  clientCertifications: clientCertifications,
+                  item: "download" /* For navbar active */,
+                  defaultStyle: defaultStyle
+                });
               }
-              req.session.clientCertifications = clientCertifications;
-              res.render("home/certifications", {
-                clientInfo: clientInfo,
-                clientCertifications: clientCertifications,
-                item: "download" /* For navbar active */,
-                defaultStyle: defaultStyle
-              });
-            }
-          );
-        });
+            );
+          });
 
-        connection.release();
+          connection.release();
+        });
       });
-    });
-  } else {
-    res.redirect("/");
+    } else {
+      res.redirect("/");
+    }
   }
-});
+);
 
 router.get("/:id/download.pdf", (req, res) => {
   const id = req.params.id;

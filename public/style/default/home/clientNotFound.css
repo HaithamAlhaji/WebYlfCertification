@@ -23,4 +23,12 @@
 #index div div div.container div.content div.input-group {
   margin: 5px auto;
 }
-/*# sourceMappingURL=index.css.map */
+
+.certificationChecked {
+  background-color: #f90;
+}
+
+.certificationUnchecked {
+  background-color: white;
+}
+/*# sourceMappingURL=clientNotFound.css.map */
