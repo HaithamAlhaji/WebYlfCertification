@@ -2,10 +2,10 @@
   "name": "ylf-certification",
   "version": "2.1.0",
   "description": "YLF",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "author": "Haitham Alhaji",
   "license": "ISC",
